@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color: theme('colors.slate.900');
+    background-color: theme('colors.slate.50');
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  body {
+    @apply m-0 bg-slate-200 font-sans text-slate-900;
+  }
+
+  h1,
+  h2 {
+    @apply mt-0 text-slate-900;
+  }
+
+  ol {
+    @apply pl-5;
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "electron-next-demo",
+  "version": "1.0.0",
+  "description": "Minimal Electron + Next.js setup that documents how the two runtimes interact.",
+  "main": "main/main.js",
+  "scripts": {
+    "dev": "concurrently \"npm:dev:renderer\" \"npm:dev:electron\"",
+    "dev:renderer": "next dev renderer -p 3000",
+    "dev:electron": "wait-on tcp:3000 && nodemon --watch main --ext js,json --exec \"cross-env NODE_ENV=development ELECTRON_START_URL=http://localhost:3000 electron main/main.js\"",
+    "build": "next build renderer",
+    "test": "node --test",
+    "start": "concurrently \"npm:start:renderer\" \"npm:start:electron\"",
+    "start:renderer": "next start renderer -p 3000",
+    "start:electron": "wait-on tcp:3000 && cross-env NODE_ENV=production ELECTRON_START_URL=http://localhost:3000 electron main/main.js"
+  },
+  "keywords": [
+    "electron",
+    "nextjs",
+    "demo"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^11.3.2",
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^38.4.0",
+    "nodemon": "^3.1.10",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.13",
+    "wait-on": "^9.0.1"
+  }
+}

@@ -1,0 +1,42 @@
+
+
+ipcMain.handle( 채널명 , 리스너 )  
+
+
+맞아요. 흐름을 정리하면 이렇게 됩니다:
+
+1.'ipc-demo:message' 요청이 들어오면 appendHistoryEntry(demoHistory, …)가 호출돼서
+
+전달된 데이터를 정규화(normalize)한 뒤
+demoHistory 배열 맨 앞에 추가하고
+HISTORY_LIMIT을 넘으면 뒤쪽 항목을 잘라서 최신 N개만 유지합니다.
+
+2. 이후 렌더러가 'ipc-demo:get-history' 채널을 invoke하면
+ipcMain.handle('ipc-demo:get-history', () => getHistorySnapshot(demoHistory))가
+현재의 demoHistory를 방어적 복사(defensive copy)로 만들어서 응답으로 돌려줍니다.
+
+덕분에 렌더러는 항상 최신 IPC 호출 기록만 조회하게 되고, 메인 프로세스에 있는 실제 배열은 안전하게 유지됩니다.
+
+----------------------------------------------------------------------------------------------------------
+
+handleSendDemoMessage() 메세지 보내면 =>  await refreshHistory(); 히스토리 자동 반환 
+
+
+----------------------------------------------------------------------------------------------------------
+
+재귀 호출로 내려간 상태에서 targetPath가 D:\포스팅\A\Y MOTORS-001.png가 되면:
+
+const stats = await fs.lstat(targetPath);에서 그 파일의 메타데이터(크기, 수정 시각 등)를 읽어오고,
+return createNode(targetPath, stats);가 그 정보를 바탕으로 파일 스냅샷 객체를 즉시 반환합니다.
+이 반환값이 부모 호출에서 Promise.all(...) 결과로 모여 const children 배열에 쌓이는 구조입니다.
+
+그래서 children에는 각 자식 경로의 스냅샷이 차곡차곡 저장되고, 마지막에 부모 디렉터리 노드를 만들 때 그 배열을 그대로 사용하게 됩니다.
+
+
+-----------------------------------------------------------------------------------------------------------
+
+
+Renderer UI → React handler → preload 브리지 → main.js
+
+
+
