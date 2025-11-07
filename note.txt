@@ -40,3 +40,25 @@ Renderer UI → React handler → preload 브리지 → main.js
 
 
 
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------
+
+
+
+
+IpcMessageForm 의 <form onSubmit={handleSendDemoMessage}>가 실행되면, 
+곧바로 renderer/hooks/useIpcHandlers.js 안에 정의된 handleSendDemoMessage 본문으로 이동합니다 
+거기서 event.preventDefault() → Electron API 확인 → 상태 업데이트 → sendDemoMessage 호출 → handleRefreshHistory() 순으로 차례대로 실행돼요.
+
+
+useHomeHandlers()가 실행될 때마다 
+homeState와 electronBridge를 펼친 이 객체가 useIpcHandlers({...}) 에 다시 전달됩니다. 
+즉, Home 컴포넌트가 렌더될 때마다 최신 상태/브리지 정보를 들고 useIpcHandlers가 재호출되는 구조
+
+
+
