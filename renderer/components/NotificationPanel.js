@@ -3,7 +3,7 @@ export default function NotificationPanel({
   body,
   onTitleChange,
   onBodyChange,
-  onSend,
+  onSend,   //  onSend={handleSendNotification}
   isSending,
   status,
   channel

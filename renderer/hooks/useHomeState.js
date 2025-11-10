@@ -44,14 +44,7 @@ const INITIAL_DIRECTORY_STATE = {
   isLoadingPreview: false,
 };
 
-/**
- * Centralizes all Home state values.
- *  - System state keeps track of bridge availability and raw system info.
- *  - IPC state captures request/response data and message history.
- *  - Realtime state mirrors updates streaming in from the main process.
- *  - Notification state represents the desktop notification form.
- *  - Directory state stores the tree returned by the Electron browser dialog.
- */
+
 const useHomeState = () => {
   // System state lives here.
   const [system, setSystem] = useState(INITIAL_SYSTEM_STATE);
@@ -124,7 +117,8 @@ const useHomeState = () => {
   /**
    *  <input value={searchQuery ?? ""} >
    * 입력 필드가 “controlled component”로 동작하게 만들어 줍니다. 
-   * 그래서 기본 역할은 말씀대로 input 값 관리가 전부
+   * 그래서 기본 역할은 input 값 관리가 전부
+   * directory.searchQuery 새 문자로 업데이트
    */
   const setDirectorySearchQuery = useCallback(
     (query) => {

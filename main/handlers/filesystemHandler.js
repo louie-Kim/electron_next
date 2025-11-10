@@ -114,11 +114,8 @@ const registerFilesystemHandlers = ({ ipcMain, mainWindow }) => {
   });
 
   ipcMain.removeHandler("filesystem:get-preview");
-  /**
-   * {
-        path: string
-      }
-   */
+  
+  // options = {} from await electronAPI.getFilePreview({ path: targetPath });
   ipcMain.handle("filesystem:get-preview", async (_event, options = {}) => {
     const targetPath =
       typeof options.path === "string" && options.path.trim().length > 0
@@ -145,6 +142,8 @@ const registerFilesystemHandlers = ({ ipcMain, mainWindow }) => {
       }
       //
       const fileBuffer = await fs.readFile(targetPath);
+      // console.log("registerFilesystemHandlers fileBuffer--------------", fileBuffer);
+
       const mimeType =
         extension === ".svg"
           ? "image/svg+xml"
@@ -157,7 +156,6 @@ const registerFilesystemHandlers = ({ ipcMain, mainWindow }) => {
       return {
         kind: "image",
         status: "Image preview ready.",
-        // 
         dataUrl: `data:${mimeType};base64,${fileBuffer.toString("base64")}`,
         byteLength: fileBuffer.byteLength,
       };
@@ -174,4 +172,3 @@ const registerFilesystemHandlers = ({ ipcMain, mainWindow }) => {
 module.exports = {
   registerFilesystemHandlers
 };
-

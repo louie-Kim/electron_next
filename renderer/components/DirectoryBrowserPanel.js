@@ -75,7 +75,7 @@ export default function DirectoryBrowserPanel({
   isBrowsing,
   searchQuery, // searchQuery={directory.searchQuery}
   onSearchChange, // onSearchChange={setDirectorySearchQuery}
-  onSearch, // handleSearchDirectory()
+  onSearch, // onSearch={handleSearchDirectory}
   searchResults,   // matches[]
   searchStatus,
   isSearching,
@@ -107,7 +107,7 @@ export default function DirectoryBrowserPanel({
           {renderNode(tree)}
         </ul>
       )}
-      {/* 지정 파일 검색하기 */}
+      {/* 특정 파일 검색하기 */}
       <form
         className="grid gap-2 rounded-lg border border-slate-200 bg-slate-50 p-3"
         onSubmit={(event) => {
@@ -214,6 +214,7 @@ export default function DirectoryBrowserPanel({
                   }
                   className="h-auto w-full object-contain"
                 />
+                
               </div>
             )}
             {previewText && !previewDataUrl && (
